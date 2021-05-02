@@ -6,6 +6,8 @@ const lowercaseEl = document.querySelector('#lowercase');
 const numbersEl = document.querySelector('#numbers');
 const specialCharactersEl = document.querySelector('#special-characters');
 const generateEl = document.querySelector('#generate');
+const cardHeaderEl = document.querySelector('.card-header');
+
 
 //Function to fetch a random value of each
 const randomFunc = {
@@ -41,6 +43,13 @@ function generatePassword(lower, upper, number, specialCharacter, length){
         return '';
     }
 
+    if (length < 8 || length > 128){
+        // cardHeaderEL.classList.add('error');
+        cardHeaderEL.innerHTML = '<h4>Please have a length between 8-128</h4>';
+
+        setTimeout(() => msg.remove(), 3000);
+} else {
+
 //Loop over length and call a generator function for each type
     for(let i = 0; i < length; i += checkCount) {
         checkArr.forEach(check => {
@@ -54,6 +63,7 @@ function generatePassword(lower, upper, number, specialCharacter, length){
     const printedPassword = generatedPassword;
 
     return printedPassword;  
+}
 }
 
 //Fetches a random lowercase letter
