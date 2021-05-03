@@ -11,6 +11,6 @@ A website that offers prospective clients insight to Erica Babb and her work. Th
 
 ## Website
 
-https://ericababb.github.io/erica-portfolio/
+https://ericababb.github.io/random-pass-generator/
 
-![Alt text](./assets/images/portfolio.png)
+![Alt text](./assets/images/password-screenshot.png)
