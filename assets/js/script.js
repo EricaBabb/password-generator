@@ -8,10 +8,10 @@ var specialCharactersEl = document.querySelector('#special-characters');
 var generateEl = document.querySelector('#generate');
 var cardHeaderEl = document.querySelector('.card-header');
 
-var UPPER_CASE = ["A" , "B" , "C"]
-var LOWER_CASE = ["a" , "b" , "c"]
-var NUMBERS_CASE = ["1" , "2" , "3"]
-var SPECIAL_CASE = ["!" , "@" , "#"]
+var UPPER_CASE = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+var LOWER_CASE = ["a" , "b" , "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var NUMBERS_CASE = ["1" , "2" , "3", "4", "5", "6", "7", "8", "9", "0"]
+var SPECIAL_CASE = ["!" , "@" , "#", "$", "%", "^", "&", "*", "(", ")"]
 
 var generatePassword = function (passwordLength, useUpper, useLower, useNumbers, useSpecial) {
     var result = ""
