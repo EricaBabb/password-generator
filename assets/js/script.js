@@ -1,92 +1,67 @@
 // DOM element variables
-const passwordEl = document.querySelector('#password');
-const lengthEl = document.querySelector('#length');
-const uppercaseEl = document.querySelector('#uppercase');
-const lowercaseEl = document.querySelector('#lowercase');
-const numbersEl = document.querySelector('#numbers');
-const specialCharactersEl = document.querySelector('#special-characters');
-const generateEl = document.querySelector('#generate');
-const cardHeaderEl = document.querySelector('.card-header');
+var passwordEl = document.querySelector('#password');
+var lengthEl = document.querySelector('#length');
+var uppercaseEl = document.querySelector('#uppercase');
+var lowercaseEl = document.querySelector('#lowercase');
+var numbersEl = document.querySelector('#numbers');
+var specialCharactersEl = document.querySelector('#special-characters');
+var generateEl = document.querySelector('#generate');
+var cardHeaderEl = document.querySelector('.card-header');
 
+var UPPER_CASE = ["A" , "B" , "C"]
+var LOWER_CASE = ["a" , "b" , "c"]
+var NUMBERS_CASE = ["1" , "2" , "3"]
+var SPECIAL_CASE = ["!" , "@" , "#"]
 
-//Function to fetch a random value of each
-const randomFunc = {
-	lower: getRandomLower,
-	upper: getRandomUpper,
-	number: getRandomNumber,
-	specialCharacter: getRandomSpecialCharacter
-}
-
-//When generate btn is clicked, the password will contain checked values
-generateEl.addEventListener('click', () => {
-    const length = +lengthEl.value;
-    //The + makes the length a number rather than a string
-	const hasLower = lowercaseEl.checked;
-	const hasUpper = uppercaseEl.checked;
-	const hasNumber = numbersEl.checked;
-	const hasSpecialCharacter = specialCharactersEl.checked;
-	
-	passwordEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSpecialCharacter, length);
-});
-
-//Generate password function
-function generatePassword(lower, upper, number, specialCharacter, length){
-    //Initializes password variable
-    let generatedPassword = '';
-
-    const checkCount = lower + upper + number + specialCharacter;
-
-    //Filter out unchecked types
-    const checkArr = [{lower}, {upper}, {number}, {specialCharacter}].filter(item => Object.values(item)[0]);
-    
-    if(checkCount === 0) {
-        return '';
+var generatePassword = function (passwordLength, useUpper, useLower, useNumbers, useSpecial) {
+    var result = ""
+    if (lengthEl.value < 8 || lengthEl.value > 128) {
+        alert("Please choose a length between 8 and 128!")
+        
+        return result
     }
 
-    if (length < 8 || length > 128){
-        // cardHeaderEL.classList.add('error');
-        cardHeaderEL.innerHTML = '<h4>Please have a length between 8-128</h4>';
+    var characterPool = []
+    if (useUpper){
+        characterPool = characterPool.concat(UPPER_CASE);
+    }
+    if (useLower){
+        characterPool = characterPool.concat(LOWER_CASE);
+    }
+    if (useNumbers){
+        characterPool = characterPool.concat(NUMBERS_CASE);
+    }
+    if (useSpecial){
+        characterPool = characterPool.concat(SPECIAL_CASE);
+    }
+    else {
+        alert("Please check at least one requirement");
 
-        setTimeout(() => msg.remove(), 3000);
-} else {
+    }
+    console.log(characterPool);
 
-//Loop over length and call a generator function for each type
-    for(let i = 0; i < length; i += checkCount) {
-        checkArr.forEach(check => {
-            const funcName = Object.keys(check)[0];
-
-            generatedPassword += randomFunc[funcName]();
-        });
+    for (var x = 0 ; x < passwordLength ; x++) {
+        var randomNum = (Math.floor(Math.random() * characterPool.length))
+        var character = characterPool[randomNum]
+        console.log(character)
+        result += character
     }
 
-    //Add printed password to the password variable and return
-    const printedPassword = generatedPassword;
+    return result
 
-    return printedPassword;  
 }
-}
+// When you click on generate password button the filters show up
+generateEl.addEventListener ("click" , function (){
 
-//Fetches a random lowercase letter
-function getRandomLower() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) +97);
-    //A random number (0-1) is fetched and rounded to nearest whole, then multiplied by the number of letters in the alphabet. Then it is added by 97 to align with the browser character set. The browser character set's lowercase numbers span from 97 (a) to 122 (z).
-}
-//Fetches random uppercase letter
-function getRandomUpper() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) +65);
-    //random number (0-1) is fetched and rounded to nearest whole, then multiplied by 26 (length of alphabet), and finally added by 65 to match with the browser character set's uppercase numbers
-}
-//Fetches random number
-function getRandomNumber() {
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    return numbers[Math.floor(Math.random() * numbers.length)];
-    //Multiplied random number generated by the length of the numbers string in order to correspond with any possible number listed
-}
-
-
-//Fetches random special character
-function getRandomSpecialCharacter() {
-    const characters = '!@#$%^&*()=+-,.<>';
-    return characters[Math.floor(Math.random() * characters.length)];
-    //Multiplied random number generated by the length of the characters string in order to correspond with any possible character listed
-}
+   var passwordLength = lengthEl.value
+   var useUpper = uppercaseEl.checked
+   var useLower = lowercaseEl.checked
+   var useNumbers = numbersEl.checked
+   var useSpecial = specialCharactersEl.checked
+   console.log(passwordLength, useUpper, useLower, useNumbers, useSpecial);
+   var password = generatePassword(passwordLength, useUpper, useLower, useNumbers, useSpecial);
+   passwordEl.innerHTML = password;
+   var password = generatePassword(passwordLength, useUpper, useLower, useNumbers, useSpecial);
+   passwordEl.innerHTML = password;
+   
+}) 
